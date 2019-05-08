@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "maildown"
+version = "0.1.0"
+description = "A super simple CLI for sending emails"
+readme = "README.md"
+authors = ["Christopher Davies <christopherdavies553@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+cleo = "^0.7.2"
+requests = "^2.21"
+boto3 = "^1.9"
+toml = "^0.10.0"
+jinja2 = "^2.10"
+mistune = "^0.8.4"
+pygments = "^2.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "4.4"
+
+[tool.poetry.scripts]
+maildown = "maildown:run"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
