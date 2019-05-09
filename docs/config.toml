@@ -2,7 +2,7 @@ baseURL = "https://www.maildown.app/"
 languageCode = "en-us"
 title = "Maildown"
 theme = "minimal"
-googleAnalytics = ""
+googleAnalytics = "UA-108134557-2"
 
 [params]
     author = "Christopher Davies"
