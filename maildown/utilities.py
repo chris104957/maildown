@@ -53,7 +53,7 @@ def get_config() -> dict:
     Returns the existing configuration from the local
     """
     try:
-        with open(os.path.join(os.path.expanduser("~"), "maildown.toml")) as f:
+        with open(os.path.join(os.path.expanduser("~"), "maildown-cli.toml")) as f:
             return toml.loads(f.read())
     except FileNotFoundError:
         pass
@@ -67,7 +67,7 @@ def write_config(**config: Dict[str, Union[str, SupportsFloat, bool]]) -> None:
     existing = get_config()
     for key, val in config.items():
         existing[key] = val
-    with open(os.path.expanduser("~/maildown.toml"), "w") as f:
+    with open(os.path.expanduser("~/maildown-cli.toml"), "w") as f:
         f.write(toml.dumps(config))
 
 
