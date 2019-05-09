@@ -1,0 +1,51 @@
+baseURL = "https://www.maildown.app/"
+languageCode = "en-us"
+title = "Maildown"
+theme = "minimal"
+googleAnalytics = ""
+
+[params]
+    author = "Christopher Davies"
+    description = "The fastest way to implement transactional emails in any project"
+    githubUsername = "chris104957"
+    accent = "green"
+    showBorder = true
+    backgroundColor = "white"
+    font = "Raleway" # should match the name on Google Fonts!
+    highlight = true
+    highlightStyle = "solarized-dark"
+    highlightLanguages = ["python", "haskell", "kotlin", "scala", "swift"]
+
+[[menu.main]]
+    url = "/"
+    name = "Home"
+    weight = 1
+
+[[menu.main]]
+    url = "/post/"
+    name = "Docs"
+    weight = 2
+
+# Social icons to be shown on the right-hand side of the navigation bar
+# The "name" field should match the name of the icon to be used
+# The list of available icons can be found at http://fontawesome.io/icons/
+
+[[menu.icon]]
+    url = "mailto:christopherdavies553@gmail.com"
+    name = "envelope-o"
+    weight = 1
+
+[[menu.icon]]
+    url = "https://github.com/chris104957/maildown"
+    name = "github"
+    weight = 2
+
+[[menu.icon]]
+    url = "https://twitter.com/christo22694524/"
+    name = "twitter"
+    weight = 3
+
+[[menu.icon]]
+    url = "https://stackoverflow.com/users/8767828/christopher-davies"
+    name = "stack-overflow"
+    weight = 5

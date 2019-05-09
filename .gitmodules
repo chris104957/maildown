@@ -1,0 +1,9 @@
+[submodule "help/themes/book"]
+	path = help/themes/book
+	url = https://github.com/alex-shpak/hugo-book
+[submodule "docs/themes/hugo-alabaster-theme"]
+	path = docs/themes/hugo-alabaster-theme
+	url = https://github.com/digitalcraftsman/hugo-alabaster-theme.git
+[submodule "docs/themes/minimal"]
+	path = docs/themes/minimal
+	url = https://github.com/calintat/minimal.git
