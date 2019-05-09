@@ -20,7 +20,7 @@ Maildown is open source and therefore completely free. It relies on Amazon SES, 
 
 In order to use Maildown, you first need to create an AWS free tier account [here](https://aws.amazon.com). Once you've signed up, you'll also realistically need to [take your AWS SES account out of the sandbox](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html)
 
-### Install with `pip`
+### Install with `pip`
 
 You can install maildown as follows:
 ```bash
