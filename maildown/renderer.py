@@ -12,8 +12,8 @@ class HighlightRenderer(mistune.Renderer):
     """
     This highlight renderer improves the way code blocks are handled
     """
-
-    def block_code(self, code, lang=None):
+    @staticmethod
+    def block_code(code, lang=None):
         if not lang:
             return "\n<pre><code>%s</code></pre>\n" % mistune.escape(code)
         lexer = get_lexer_by_name(lang, stripall=True)
