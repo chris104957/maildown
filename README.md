@@ -1,3 +1,7 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9d67273a-a51d-417b-bbad-291c237e5d8a/deploy-status)](https://app.netlify.com/sites/adoring-newton-752f36/deploys)
+[![Open Source Helpers](https://www.codetriage.com/chris104957/maildown/badges/users.svg)](https://www.codetriage.com/chris104957/maildown)
+
+
 # Maildown
 
 A super simple CLI for sending emails
