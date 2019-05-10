@@ -45,9 +45,17 @@ def generate_content(
 
     markdown = mistune.Markdown(renderer=HighlightRenderer())
 
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.jinja2"),) as t:
+    with open(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.jinja2")
+    ) as t:
         template = Template(t.read())
     content = transform(template.render(content=markdown(md_content), stylesheet=theme))
 
     t = Template(content)
     return t.render(context)
+
+
+#
+# with open('test.md') as r:
+#     with open('test.html', 'w') as f:
+#         f.write(generate_content(r.read(), theme='my-style.css', context=dict(things=['Thing 1', 'Thing 2'])))
