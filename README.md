@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ff5c4aec97414be488228268758b83c7)](https://app.codacy.com/app/christopherdavies553/maildown?utm_source=github.com&utm_medium=referral&utm_content=chris104957/maildown&utm_campaign=Badge_Grade_Dashboard)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9d67273a-a51d-417b-bbad-291c237e5d8a/deploy-status)](https://app.netlify.com/sites/adoring-newton-752f36/deploys)
 [![Open Source Helpers](https://www.codetriage.com/chris104957/maildown/badges/users.svg)](https://www.codetriage.com/chris104957/maildown)
 ![MIT license](https://img.shields.io/github/license/chris104957/maildown.svg)
