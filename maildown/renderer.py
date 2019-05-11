@@ -23,9 +23,7 @@ class HighlightRenderer(mistune.Renderer):
 
 
 def generate_content(
-    md_content: str,
-    theme: Optional[str] = None,
-    context: Optional[dict] = None,
+    md_content: str, theme: Optional[str] = None, context: Optional[dict] = None
 ):
     """
     Generates the content of an email to be sent. This method actually renders two templates:
