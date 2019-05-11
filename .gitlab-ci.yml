@@ -42,3 +42,4 @@ unit_tests:
     - poetry install
   script:
     - poetry run pytest tests --cov=maildown
+    - coverage report --fail-under=95
