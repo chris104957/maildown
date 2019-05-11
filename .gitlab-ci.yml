@@ -26,6 +26,19 @@ mypy:
     - apk add curl
     - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     - source $HOME/.poetry/env
+    - pip install pytest-cov==2.7.1
     - poetry install
   script:
     - mypy maildown --ignore-missing-imports
+
+unit_tests:
+  stage: test
+  image: python:3.7-alpine
+  before_script:
+    - apk add curl
+    - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    - source $HOME/.poetry/env
+    - pip install pytest-cov==2.7.1
+    - poetry install
+  script:
+    - poetry run pytest tests --cov=maildown
