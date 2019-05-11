@@ -15,6 +15,7 @@ script:
   - coverage report --fail-under=95
 
 after_success:
+  - pip install python-coveralls
   - coveralls
 
 before_deploy:
