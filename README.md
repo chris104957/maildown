@@ -2,6 +2,7 @@
 [![Open Source Helpers](https://www.codetriage.com/chris104957/maildown/badges/users.svg)](https://www.codetriage.com/chris104957/maildown)
 ![MIT license](https://img.shields.io/github/license/chris104957/maildown.svg)
 [![Coverage Status](https://coveralls.io/repos/github/chris104957/maildown/badge.svg?branch=master)](https://coveralls.io/github/chris104957/maildown?branch=master)
+[![Build Status](https://travis-ci.org/chris104957/maildown.svg?branch=master)](https://travis-ci.org/chris104957/maildown)
 
 # Maildown
 
