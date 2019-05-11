@@ -12,6 +12,7 @@ class HighlightRenderer(mistune.Renderer):
     """
     This highlight renderer improves the way code blocks are handled
     """
+
     @staticmethod
     def block_code(code, lang=None):
         if not lang:
@@ -49,7 +50,9 @@ def generate_content(
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.jinja2")
     ) as t:
         template = jinja2.Template(t.read())
-    content = premailer.transform(template.render(content=markdown(md_content), stylesheet=theme))
+    content = premailer.transform(
+        template.render(content=markdown(md_content), stylesheet=theme)
+    )
 
     t = jinja2.Template(content)
     return t.render(context)
