@@ -19,6 +19,7 @@ coverage = "^4.5"
 mock = "^3.0"
 mypy = "^0.701.0"
 pytest-cov = "^2.7"
+flake8 = "^3.7"
 
 [tool.poetry.dev-dependencies]
 pytest = "4.4"
