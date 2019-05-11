@@ -11,6 +11,7 @@ flake8:
   stage: test
   image: python:3.7-alpine
   before_script:
+    - apk add curl
     - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     - poetry install
 
@@ -21,6 +22,7 @@ mypy:
   stage: test
   image: python:3.7-alpine
   before_script:
+    - apk add curl
     - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
     - poetry install
   script:
