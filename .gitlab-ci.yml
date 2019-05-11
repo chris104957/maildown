@@ -10,6 +10,7 @@ stages:
 flake8:
   stage: test
   before_script:
+    - apt-get install -y python-dev python-pip
     - pip3 install -r requirements.txt
 
   script:
@@ -19,6 +20,7 @@ flake8:
 mypy:
   stage: test
   before_script:
+    - apt-get install -y python-dev python-pip
     - pip3 install -r requirements.txt
   script:
     - mypy maildown --ignore-missing-imports
