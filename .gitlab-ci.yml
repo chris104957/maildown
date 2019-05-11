@@ -13,6 +13,7 @@ flake8:
   before_script:
     - apk add curl
     - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    - source $HOME/.poetry/env
     - poetry install
 
   script:
@@ -24,6 +25,7 @@ mypy:
   before_script:
     - apk add curl
     - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    - source $HOME/.poetry/env
     - poetry install
   script:
     - mypy maildown --ignore-missing-imports
