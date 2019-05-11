@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    <head>
+        {{ partial "head-open" . }}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ .Title }}</title>
+        {{ if .Site.Params.favicon }}
+        <link rel="icon" href="{{ .Site.Params.favicon | absURL }}">
+        {{ end }}
+        {{ partial "css" . }} {{ partial "js" . }} {{ .Hugo.Generator }}
+        {{ if .RSSLink }}
+        <link href="{{ .RSSLink }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />
+        <link href="{{ .RSSLink }}" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}" />
+        {{ end }}
+
+        {{ if .Site.GoogleAnalytics }}
+        <!-- Global Site Tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)};
+          gtag('js', new Date());
+
+          gtag('config', '{{ .Site.GoogleAnalytics }}');
+        </script>
+        {{ end }}
+    </head>
+
+    {{ if .Site.Params.MathJax | default true }}
+    <!-- adds MathJax support -->
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    {{ end }}
+
+    <body>
+        {{ partial "body-open" . }}
+        <nav class="navbar navbar-default navbar-fixed-top">
+
+            <div class="container">
+
+                <div class="navbar-header">
+
+                    <a class="navbar-brand visible-xs" href="#">{{ .Title }}</a>
+
+                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                </div>
+
+                <div class="collapse navbar-collapse">
+
+                    {{ if .Site.Menus.main }}
+                        <ul class="nav navbar-nav">
+                            {{ range sort .Site.Menus.main }}
+                                <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                            {{ end }}
+                        </ul>
+                    {{ end }}
+
+                    {{ if .Site.Menus.icon }}
+                        <ul class="nav navbar-nav navbar-right">
+                            {{ range sort .Site.Menus.icon }}
+                                <li class="navbar-icon"><a href="{{ .URL }}"><i class="fa fa-{{ .Name }}"></i></a></li>
+                            {{ end }}
+                        </ul>
+                    {{ end }}
+
+                </div>
+
+            </div>
+
+        </nav>

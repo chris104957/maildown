@@ -1,0 +1,25 @@
+<div class="item">
+
+    {{ $.Scratch.Set "link" .RelPermalink }}
+    {{ with .Params.repo }}
+        {{ $repoHost := default "github" $.Params.repoHost }}
+        {{ if eq "github" $repoHost }}
+            {{ printf "https://github.com/%s/%s/" $.Site.Params.githubUsername . | $.Scratch.Set "link" }}
+        {{ else if eq "gitlab" $repoHost }}
+            {{ printf "https://gitlab.com/%s/%s/" $.Site.Params.gitlabUsername . | $.Scratch.Set "link" }}
+        {{ else if eq "bitbucket" $repoHost }}
+            {{ printf "https://bitbucket.org/%s/%s/" $.Site.Params.bitbucketUsername . | $.Scratch.Set "link" }}
+        {{ end }}
+    {{ end }}
+    {{ with .Params.link }} {{ $.Scratch.Set "link" . }} {{ end }}
+
+    {{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006") | $.Scratch.Set "subtitle" }}
+    {{ with .Description }} {{ $.Scratch.Set "subtitle" . }} {{ end }}
+
+    <h4><a href="{{ .Scratch.Get "link" }}">{{ .Title }}</a></h4>
+    <h5>{{ $.Scratch.Get "subtitle" }}</h5>
+    {{ range .Params.tags }}
+    <a href="{{ $.Site.BaseURL }}tags/{{ . | urlize }}"><kbd class="item-tag">{{ . }}</kbd></a>
+    {{ end }}
+
+</div>

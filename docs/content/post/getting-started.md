@@ -93,6 +93,25 @@ The above arguments, in order, are:
   the email, e.g. `-c "hello"`
 - A list of email addresses to send the content to
 
+### Adding context to your emails
+
+It's also possible to add context to your emails. For example, you can
+add syntax like this to your Markdown emails:
+```markdown
+# Hello {{ name  or "there" }}
+```
+
+You can then pass the `name` argument to your emails as follows:
+```bash
+maildown send christopherdavies553@gmail.com "my email subject" -e name=Chris -f "email.md" recipient1@gmail.com 
+```
+This will be rendered as `Hello Chris` when you send your email. If you 
+do not provide this context, it will render as `Hello there`, as you
+set the default fallback value to `there` in this instance.
+
+To see the full set of what's possible in your Markdown emails, see
+[advanced template syntax](/posts/templates)
+
 ## Styling emails
 
 By default, Maildown bakes in its own default style sheet when sending 

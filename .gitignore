@@ -1,2 +1,8 @@
 venv
 .idea
+__pycache__
+maildown.egg-info
+.mypy_cache
+.pytest_cache
+dist
+.github

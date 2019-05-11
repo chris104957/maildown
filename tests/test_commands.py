@@ -51,6 +51,7 @@ def test_send(monkeypatch):
         to=["somebody@email.com"],
         file_path=None,
         theme="test",
+        context={},
     )
 
     assert "Messages added to queue" in command_tester.io.fetch_output()
