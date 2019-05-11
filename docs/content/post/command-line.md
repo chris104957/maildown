@@ -70,6 +70,8 @@ OPTIONS
   -c (--content)         The content of the email to send
   -f (--file-path)       A path to a file containing content to send
   -t (--theme)           A path to a css file to be applied to the email
+  -e (--variable)        Context variables to pass to the email, e.g. `-e name=Chris` (multiple values allowed)
+
 
 GLOBAL OPTIONS
   -h (--help)            Display this help message
