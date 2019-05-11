@@ -11,7 +11,8 @@ flake8:
   stage: test
   image: python:3.7-alpine
   before_script:
-    - pip install -r requirements.txt
+    - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    - poetry install
 
   script:
     - flake8 maildown
@@ -20,6 +21,7 @@ mypy:
   stage: test
   image: python:3.7-alpine
   before_script:
-    - pip install -r requirements.txt
+    - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+    - poetry install
   script:
     - mypy maildown --ignore-missing-imports
