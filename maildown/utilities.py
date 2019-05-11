@@ -8,6 +8,9 @@ from maildown.renderer import generate_content
 
 
 def get_client() -> boto3.client:
+    """
+    Returns an authenticated boto3.ses client
+    """
     config = get_config()
 
     return boto3.client(
@@ -19,6 +22,15 @@ def get_client() -> boto3.client:
 
 
 def verify_address(email: str) -> bool:
+    """
+    Asks Amazon to send an email to a given email address to verify the user's ownership of that address.
+
+    Email addresses must be verified by Amazon before you can send emails from them with SES
+
+    ### Parameters:
+
+    - `email`: The email address to be verified
+    """
     client = get_client()
     addresses = client.list_verified_email_addresses().get("VerifiedEmailAddresses")
 
@@ -33,7 +45,14 @@ def verify_auth(
     access_key: str, secret_key: str, region_name: str = "us-east-1"
 ) -> bool:
     """
-    Checks that the given credentials work by executing a simple boto3 command
+    Checks that the given credentials are valid by performing a simple call on the SES API
+
+    ### Parameters:
+
+    - `access_key`: AWS access key
+    - `secret_key`: AWS secret key
+    - `region_name`: The AWS region name. Defaults to `us-east-1`
+
     """
     client = boto3.client(
         "ses",
@@ -50,10 +69,10 @@ def verify_auth(
 
 def get_config() -> dict:
     """
-    Returns the existing configuration from the local
+    Returns the existing configuration from the local environment
     """
     try:
-        with open(os.path.join(os.path.expanduser("~"), "maildown-cli.toml")) as f:
+        with open(os.path.join(os.path.expanduser("~"), "maildown.toml")) as f:
             return toml.loads(f.read())
     except FileNotFoundError:
         pass
@@ -63,11 +82,16 @@ def get_config() -> dict:
 def write_config(**config: Dict[str, Union[str, SupportsFloat, bool]]) -> None:
     """
     Updates the existing local config with the given additional arguments
+
+    ### Parameters:
+
+    - `config`: the new configuration items to add to the configuration
+
     """
     existing = get_config()
     for key, val in config.items():
         existing[key] = val
-    with open(os.path.expanduser("~/maildown-cli.toml"), "w") as f:
+    with open(os.path.expanduser("~/maildown.toml"), "w") as f:
         f.write(toml.dumps(config))
 
 
@@ -94,7 +118,13 @@ def login(
 
     However, if valid credentials can be found, these are stored locally
 
-    TODO: replace all exceptions raised in this method with Maildown ones
+    ### Parameters:
+
+    - `access_key`: AWS access key
+    - `secret_key`: AWS secret key
+    - `region_name`: The AWS region name. Defaults to `us-east-1`
+    - `aws_config_file`: The location of the credentials file created by `aws configure`
+
     """
 
     if not any([access_key, secret_key]):
@@ -139,6 +169,19 @@ def send_message(
     context: Optional[dict] = None,
     theme=None,
 ):
+    """
+    Sends an email to a given list of recipients
+
+    ### Parameters:
+
+    - `sender`: the email address to send the message from. Must have been verified by SES
+    - `subject`: The subject line of the email
+    - `to`: A list of email addresses to send the email to
+    - `content`: The content of the email to send. Either this parameter, or `file_path`, must be supplied
+    - `file_path`: A local file path to a file to be send as the email body
+    - `context`: Additional context to be sent to the email - can be inserted using Jinja2 template syntax
+    - `theme`: A local file path to a css style sheet. If not supplied, the default style is used
+    """
     if not context:
         context = {}
 

@@ -1,11 +1,11 @@
 import os
 from typing import Optional
-from jinja2 import Template
+import jinja2
 import mistune
-from pygments import highlight
-from pygments.lexers import get_lexer_by_name
+import pygments
+from pygments import lexers
 from pygments.formatters import html
-from premailer import transform
+import premailer
 
 
 class HighlightRenderer(mistune.Renderer):
@@ -16,9 +16,9 @@ class HighlightRenderer(mistune.Renderer):
     def block_code(code, lang=None):
         if not lang:
             return "\n<pre><code>%s</code></pre>\n" % mistune.escape(code)
-        lexer = get_lexer_by_name(lang, stripall=True)
+        lexer = lexers.get_lexer_by_name(lang, stripall=True)
         formatter = html.HtmlFormatter()
-        return highlight(code, lexer, formatter)
+        return pygments.highlight(code, lexer, formatter)
 
 
 def generate_content(
@@ -48,10 +48,10 @@ def generate_content(
     with open(
         os.path.join(os.path.dirname(os.path.abspath(__file__)), "template.jinja2")
     ) as t:
-        template = Template(t.read())
-    content = transform(template.render(content=markdown(md_content), stylesheet=theme))
+        template = jinja2.Template(t.read())
+    content = premailer.transform(template.render(content=markdown(md_content), stylesheet=theme))
 
-    t = Template(content)
+    t = jinja2.Template(content)
     return t.render(context)
 
 

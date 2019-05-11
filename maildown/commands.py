@@ -67,7 +67,7 @@ class SendCommand(Command):
         {subject : The subject line of the email}
         {--c|content=? : The content of the email to send}
         {--f|file-path=? : A path to a file containing content to send}
-        {--t|theme : A path to a css file to be applied to the email}
+        {--t|theme=? : A path to a css file to be applied to the email}
         {recipients?* : A list of email addresses to send the mail to}
     """
 
