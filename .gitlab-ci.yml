@@ -9,18 +9,17 @@ stages:
 
 flake8:
   stage: test
+  image: python:3.7-alpine
   before_script:
-    - apt-get install -y python-dev python-pip
-    - pip3 install -r requirements.txt
+    - pip install -r requirements.txt
 
   script:
     - flake8 maildown
 
-
 mypy:
   stage: test
+  image: python:3.7-alpine
   before_script:
-    - apt-get install -y python-dev python-pip
-    - pip3 install -r requirements.txt
+    - pip install -r requirements.txt
   script:
     - mypy maildown --ignore-missing-imports
