@@ -1,3 +1,4 @@
+from typing import MutableMapping, Any
 import os
 import toml
 from typing import Optional, Dict, Union, SupportsFloat
@@ -67,7 +68,7 @@ def verify_auth(
         return False
 
 
-def get_config() -> dict:
+def get_config() -> MutableMapping[str, Any]:
     """
     Returns the existing configuration from the local environment
     """
@@ -149,15 +150,15 @@ def login(
             "values, set the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, or run "
             "`aws configure` and try again"
         )
+    elif access_key and secret_key:
+        if not verify_auth(access_key, secret_key, region_name):
+            raise AttributeError("The supplied credentials are not valid")
 
-    if not verify_auth(access_key, secret_key, region_name):
-        raise AttributeError("The supplied credentials are not valid")
-
-    config = get_config()
-    config["access_key"] = access_key
-    config["secret_key"] = secret_key
-    config["region_name"] = region_name
-    write_config(**config)
+        maildown_config = get_config()
+        maildown_config["access_key"] = access_key
+        maildown_config["secret_key"] = secret_key
+        maildown_config["region_name"] = region_name
+        write_config(**maildown_config)
 
 
 def send_message(
@@ -185,31 +186,27 @@ def send_message(
     if not context:
         context = {}
 
-    if all([content, file_path]) or not any([content, file_path]):
-        raise AttributeError(
-            "You must provide either the content or filepath attribute"
-        )
-
     if file_path:
         with open(file_path) as f:
             content = f.read()
 
-    kwargs = dict(md_content=content, context=context)
+    if content:
+        message = generate_content(content, context=context, theme=theme)
 
-    if theme:
-        kwargs["theme"] = theme
-
-    message = generate_content(**kwargs)
-
-    client = get_client()
-    return client.send_email(
-        Source=sender,
-        Destination=dict(ToAddresses=to),
-        Message=dict(
-            Body=dict(
-                Html=dict(Charset="utf-8", Data=message),
-                Text=dict(Charset="utf-8", Data=content),
+        client = get_client()
+        return client.send_email(
+            Source=sender,
+            Destination=dict(ToAddresses=to),
+            Message=dict(
+                Body=dict(
+                    Html=dict(Charset="utf-8", Data=message),
+                    Text=dict(Charset="utf-8", Data=content),
+                ),
+                Subject=dict(Charset="utf-8", Data=subject),
             ),
-            Subject=dict(Charset="utf-8", Data=subject),
-        ),
-    )
+        )
+
+    else:
+        raise AttributeError(
+            "You must provide either the content or filepath attribute"
+        )

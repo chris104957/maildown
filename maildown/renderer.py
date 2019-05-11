@@ -24,7 +24,7 @@ class HighlightRenderer(mistune.Renderer):
 
 def generate_content(
     md_content: str,
-    theme: str = os.path.join(os.path.dirname(os.path.abspath(__file__)), "style.css"),
+    theme: Optional[str] = None,
     context: Optional[dict] = None,
 ):
     """
@@ -38,6 +38,9 @@ def generate_content(
     1. Applies an additional highlight renderer with better support for code blocks
     2. Uses premailer.transform to bake the css into the HTML
     """
+    if not theme:
+        theme = os.path.join(os.path.dirname(os.path.abspath(__file__)), "style.css")
+
     if not context:
         context = {}
 
@@ -54,8 +57,8 @@ def generate_content(
         template.render(content=markdown(md_content), stylesheet=theme)
     )
 
-    t = jinja2.Template(content)
-    return t.render(context)
+    new_template = jinja2.Template(content)
+    return new_template.render(context)
 
 
 #
