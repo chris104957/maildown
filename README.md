@@ -1,5 +1,4 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9d67273a-a51d-417b-bbad-291c237e5d8a/deploy-status)](https://app.netlify.com/sites/adoring-newton-752f36/deploys)
-[![Open Source Helpers](https://www.codetriage.com/chris104957/maildown/badges/users.svg)](https://www.codetriage.com/chris104957/maildown)
 ![MIT license](https://img.shields.io/github/license/chris104957/maildown.svg)
 [![Coverage Status](https://coveralls.io/repos/github/chris104957/maildown/badge.svg?branch=master)](https://coveralls.io/github/chris104957/maildown?branch=master)
 [![Build Status](https://travis-ci.org/chris104957/maildown.svg?branch=master)](https://travis-ci.org/chris104957/maildown)
