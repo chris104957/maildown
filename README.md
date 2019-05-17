@@ -7,7 +7,7 @@
 
 A super simple CLI for sending emails
 
-## Introducion
+## Introduction
 
 Maildown is a command line interface that lets you send emails using Amazon AWS SES with a minimum of fuss
 
