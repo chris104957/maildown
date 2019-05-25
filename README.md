@@ -2,6 +2,7 @@
 ![MIT license](https://img.shields.io/github/license/chris104957/maildown.svg)
 [![Coverage Status](https://coveralls.io/repos/github/chris104957/maildown/badge.svg?branch=master)](https://coveralls.io/github/chris104957/maildown?branch=master)
 [![Build Status](https://travis-ci.org/chris104957/maildown.svg?branch=master)](https://travis-ci.org/chris104957/maildown)
+[![GitSpo Mentions](https://gitspo.com/badges/mentions/chris104957/maildown?style=flat-square)](https://gitspo.com/mentions/chris104957/maildown)
 
 # Maildown
 
