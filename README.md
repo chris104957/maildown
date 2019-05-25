@@ -18,7 +18,7 @@ Maildown makes it easier to add structure and style to your email content. It su
 
 ### How much does it cost?
 
-Maildown is open source and therefore completely free. It relies on Amazon SES, which *isn't* completely free, but it does let you send up to 62,000 free emails per month. So for the vast majority of people, Maildown costs nothing to run.
+Maildown is open source and therefore completely free. It relies on Amazon SES, which *isn't* completely free, but it does let you send up to 62,000 free emails per month (*when sent from an EC2 instance*). So for the vast majority of people, Maildown costs nothing to run.
 
 ## Installation and usage
 
