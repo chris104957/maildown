@@ -20,7 +20,7 @@ you can just send Markdown files as emails with no additional effort.
 
 Maildown is open source and therefore completely free. It relies on 
 Amazon SES, which *isn't* completely free, but it does let you send up 
-to 62,000 free emails per month. So for vast majority of people, 
+to 62,000 free emails per month (*when sent from an EC2 instance*). So for vast majority of people, 
 Maildown costs nothing to run.
 
 ## Installation and usage
@@ -126,4 +126,3 @@ sending mails, like this:
 ```bash
 maildown send christopherdavies553@gmail.com "my email subject" -f "email.md" --theme "my-style.css" recipient1@gmail.com recipient2@gmail.com
 ```
-
