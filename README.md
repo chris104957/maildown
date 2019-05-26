@@ -79,7 +79,7 @@ By default, Maildown bakes in its own default style sheet when sending emails. T
 
 ![screenshot](https://raw.githubusercontent.com/chris104957/maildown/master/Screen%20Shot%202019-05-08%20at%2023.26.45.png)
 
-You can apply your own syles by simply using the `--theme` flag when sending mails, like this:
+You can apply your own styles by simply using the `--theme` flag when sending mails, like this:
 
 ```bash
 maildown send christopherdavies553@gmail.com "my email subject" -f "email.md" --theme "my-style.css" recipient1@gmail.com recipient2@gmail.com
