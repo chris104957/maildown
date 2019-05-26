@@ -120,7 +120,7 @@ of this project's Github readme):
 
 ![screenshot](https://raw.githubusercontent.com/chris104957/maildown/master/Screen%20Shot%202019-05-08%20at%2023.26.45.png)
 
-You can apply your own syles by simply using the `--theme` flag when 
+You can apply your own styles by simply using the `--theme` flag when 
 sending mails, like this:
 
 ```bash
