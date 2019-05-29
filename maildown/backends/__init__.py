@@ -1,1 +1,1 @@
-from maildown.backends.aws import AwsBackend
+from maildown.backends.aws import AwsBackend  # noqa: F401

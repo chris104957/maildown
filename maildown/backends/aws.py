@@ -9,7 +9,7 @@ from botocore.exceptions import ClientError
 class AwsBackend(BaseBackend):
     name = "aws"
 
-    def login(
+    def login(  # type: ignore
         self,
         access_key: Optional[str] = None,
         secret_key: Optional[str] = None,
@@ -46,9 +46,9 @@ class AwsBackend(BaseBackend):
             if not self.verify_auth(access_key, secret_key, region_name):
                 raise AttributeError("The supplied credentials are not valid")
 
-            self.config["access_key"] = access_key
-            self.config["secret_key"] = secret_key
-            self.config["region_name"] = region_name
+            self.config["access_key"] = access_key  # type: ignore
+            self.config["secret_key"] = secret_key  # type: ignore
+            self.config["region_name"] = region_name  # type: ignore
 
     def send_message(
         self, to: list, sender: str, html: str, content: str, subject: str
@@ -72,9 +72,9 @@ class AwsBackend(BaseBackend):
         """
         return boto3.client(
             "ses",
-            aws_access_key_id=self.config.get("access_key"),
-            aws_secret_access_key=self.config.get("secret_key"),
-            region_name=self.config.get("region", "us-east-1"),
+            aws_access_key_id=self.config.get("access_key"),  # type: ignore
+            aws_secret_access_key=self.config.get("secret_key"),  # type: ignore
+            region_name=self.config.get("region", "us-east-1"),  # type: ignore
         )
 
     def verify_address(self, email: str) -> bool:

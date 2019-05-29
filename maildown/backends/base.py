@@ -11,7 +11,7 @@ class BaseConfig(object):
         backend_config = config.get(self.backend.name, {})
         return backend_config[item]
 
-    def get(self, item, default: Any = None):
+    def get(self, item, default: Optional[Any] = None):
         try:
             return self.__getitem__(item)
         except KeyError:

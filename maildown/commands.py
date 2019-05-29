@@ -19,18 +19,17 @@ class InitCommand(Command):
         __backend = available_backends.get(self.option("backend"))
         if not __backend:
             return self.line(
-                f'No backend called {self.option("backend")} exists',
-                'error'
+                f'No backend called {self.option("backend")} exists', "error"
             )
 
         backend = __backend()
         kwargs = dict()
-        for arg in self.argument('options'):
-            key, val = arg.split('=')
+        for arg in self.argument("options"):
+            key, val = arg.split("=")
             kwargs[key] = val
 
         backend.login(**kwargs)
-        self.info('Initiated successfully')
+        self.info("Initiated successfully")
 
 
 class VerifyCommand(Command):
@@ -47,8 +46,7 @@ class VerifyCommand(Command):
         __backend = available_backends.get(self.option("backend"))
         if not __backend:
             return self.line(
-                f'No backend called {self.option("backend")} exists',
-                'error'
+                f'No backend called {self.option("backend")} exists', "error"
             )
         backend = __backend()
 
@@ -83,8 +81,7 @@ class SendCommand(Command):
         __backend = available_backends.get(self.option("backend"))
         if not __backend:
             return self.line(
-                f'No backend called {self.option("backend")} exists',
-                'error'
+                f'No backend called {self.option("backend")} exists', "error"
             )
         backend = __backend()
 
