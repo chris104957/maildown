@@ -10,21 +10,30 @@ A super simple CLI for sending emails
 
 ## Introduction
 
-Maildown is a command line interface that lets you send emails using Amazon AWS SES with a minimum of fuss
+Maildown is a command line interface that lets you send emails with a minimum of fuss. It currently supports the AWS SES (default)
+and Sendgrid as email backends. Support for more email providers will be added in the future
 
-### Why can't I just use `boto3`?
+### Why can't I just use `boto3`/the SendGrid API?
 
 Maildown makes it easier to add structure and style to your email content. It supports **Markdown syntax** out of the box, meaning that you can just send Markdown files as emails with no additional effort.
 
 ### How much does it cost?
 
-Maildown is open source and therefore completely free. It relies on Amazon SES, which *isn't* completely free, but it does let you send up to 62,000 free emails per month (*when sent from an EC2 instance*). So for the vast majority of people, Maildown costs nothing to run.
+Maildown is open source and therefore completely free. However, it relies on third party services (e.g. AWS, SendGrid) to actually send your emails - these services aren't free,
+alhough they do have free limits depending on the number of emails you need to send
 
 ## Installation and usage
 
 ### Pre requisites
 
-In order to use Maildown, you first need to create an AWS free tier account [here](https://aws.amazon.com). Once you've signed up, you'll also realistically need to [take your AWS SES account out of the sandbox](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html)
+In order to use Maildown, you first need to create an account with one of the supported backend email providers:
+
+- **[AWS](https://aws.amazon.com)**
+
+   For AWS, you'll also realistically need to [take your AWS SES account out of the sandbox](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html)
+   
+- **[SendGrid](https://sendgrid.com/)**
+
 
 ### Install with `pip`
 
@@ -35,10 +44,16 @@ pip install maildown
 
 ### Authenticating Maildown
 
-Maildown stores your credentials locally for convenience. Before you can use Maildown's features, you should run the `maildown init` command
+Maildown stores your credentials locally for convenience. Before you can use Maildown's features, you should run the `maildown init` command. By default, 
+`maildown` uses the AWS backend:
 
 ```bash
-maildown init AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY
+maildown init access_key=AWS_ACCESS_KEY_ID secret_key=AWS_SECRET_ACCESS_KEY
+```
+
+To use the SendGrid API, you'll need to pass the `--backend=sendgrid` option with all commands:
+```bash
+maildown init api_key=SENDGRID_API_KEY --backend=sendgrid
 ```
 
 > If you have previously used the `aws cli` and have already run `aws configure`, or if you have set the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` in your environment, you can just use `maildown init` with no arguments to store your credentials
@@ -60,6 +75,9 @@ This email address has already been verified
 ```
 
 You are now ready to start sending emails!
+
+.. note:
+    This command is AWS-specific - The SendGrid backend does not implement this feature
 
 ## Sending emails
 

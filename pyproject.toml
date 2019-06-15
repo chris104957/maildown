@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "maildown"
-version = "1.1.0"
+version = "1.2.0"
 description = "A super simple CLI for sending emails"
 readme = "README.md"
 authors = ["Christopher Davies <christopherdavies553@gmail.com>"]
@@ -20,6 +20,7 @@ mock = "^3.0"
 mypy = "^0.701.0"
 pytest-cov = "^2.7"
 flake8 = "^3.7"
+sendgrid = "^6.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "4.4"
