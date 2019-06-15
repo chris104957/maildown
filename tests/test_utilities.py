@@ -1,5 +1,5 @@
 import pytest
-from maildown import utilities
+from maildown import utilities, backends, renderer
 import boto3
 import mock
 from botocore.exceptions import ClientError
@@ -26,24 +26,25 @@ def test_client(monkeypatch):
     monkeypatch.setattr(utilities, "get_config", mock.MagicMock())
     monkeypatch.setattr(boto3, "client", mock.MagicMock())
     utilities.get_config.return_value = dict(access_key=1, secret_key=1)
-    utilities.get_client()
+    backends.AwsBackend().client
 
     boto3.client.assert_called_with(
-        "ses", aws_access_key_id=1, aws_secret_access_key=1, region_name="us-east-1"
+        "ses", aws_access_key_id=None, aws_secret_access_key=None, region_name="us-east-1"
     )
 
 
 def test_verify_address(monkeypatch):
-    monkeypatch.setattr(utilities, "get_client", MockClient)
+    monkeypatch.setattr(boto3, "client", MockClient)
+    backend = backends.AwsBackend()
 
-    assert utilities.verify_address("me@email.com") is True
-    assert utilities.verify_address("me2@email.com") is False
+    assert backend.verify_address("me@email.com") is True
+    assert backend.verify_address("me2@email.com") is False
 
 
 def test_verify_auth(monkeypatch):
     monkeypatch.setattr(boto3, "client", mock.MagicMock())
 
-    assert utilities.verify_auth("access_key", "secret_key") is True
+    assert backends.AwsBackend().verify_auth("access_key", "secret_key") is True
     boto3.client.assert_called_with(
         "ses",
         aws_access_key_id="access_key",
@@ -52,7 +53,7 @@ def test_verify_auth(monkeypatch):
     )
 
     monkeypatch.setattr(boto3, "client", MockClient)
-    assert utilities.verify_auth("access_key", "secret_key") is False
+    assert backends.AwsBackend().verify_auth("access_key", "secret_key") is False
 
 
 def test_get_config(monkeypatch):
@@ -81,18 +82,18 @@ def test_write_config(monkeypatch):
 
 def test_login(monkeypatch):
     monkeypatch.setattr(configparser, "ConfigParser", mock.MagicMock())
-    monkeypatch.setattr(utilities, "verify_auth", mock.MagicMock())
-    utilities.login(aws_config_file="cred")
+    monkeypatch.setattr(backends.AwsBackend, "verify_auth", mock.MagicMock())
+    backends.AwsBackend().login(aws_config_file="cred")
     configparser.ConfigParser().read.assert_called_with("cred")
 
 
 def test_send_message(monkeypatch):
-    monkeypatch.setattr(utilities, "get_client", mock.MagicMock())
+    monkeypatch.setattr(backends.AwsBackend, "client", mock.MagicMock())
     monkeypatch.setattr(builtins, "open", mock.MagicMock())
-    monkeypatch.setattr(utilities, "generate_content", mock.MagicMock())
+    monkeypatch.setattr(renderer, "generate_content", mock.MagicMock())
     with pytest.raises(AttributeError):
-        utilities.send_message("test", "test", ["test@test.com"], theme="test")
+        backends.AwsBackend().send("test", "test", ["test@test.com"], theme="test")
 
-    utilities.send_message(
+    backends.AwsBackend().send(
         "test", "test", ["test@test.com"], file_path="test", theme="test"
     )

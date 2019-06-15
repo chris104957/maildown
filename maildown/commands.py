@@ -1,5 +1,8 @@
 from cleo.commands import Command
-from maildown import utilities
+from maildown import backends
+
+
+available_backends = dict(aws=backends.AwsBackend)
 
 
 class InitCommand(Command):
@@ -7,33 +10,26 @@ class InitCommand(Command):
     Configures Maildown for use
 
     init
-        {access-key? : Your AWS Access Key ID}
-        {secret-key? : Your AWS Secret key}
-        {region? : AWS region to use (defaults to "us-east-1")}
-        {aws-config-file? : Path to your AWS config file (defaults to ~/.aws/credentials}
+        {--backend=aws : The email backend to use. Defaults to AWS SES }
+        {options?* : Arguments to pass to the backend's login methods, e.g. `access_key=1234`}
+
     """
 
     def handle(self):
+        __backend = available_backends.get(self.option("backend"))
+        if not __backend:
+            return self.line(
+                f'No backend called {self.option("backend")} exists', "error"
+            )
+
+        backend = __backend()
         kwargs = dict()
-        access_key = self.argument("access-key")
-        secret_key = self.argument("secret-key")
-        region = self.argument("region")
-        aws_config_file = self.argument("aws-config-file")
+        for arg in self.argument("options"):
+            key, val = arg.split("=")
+            kwargs[key] = val
 
-        if access_key:
-            kwargs["access_key"] = access_key
-
-        if secret_key:
-            kwargs["secret_key"] = secret_key
-
-        if region:
-            kwargs["region"] = region
-
-        if aws_config_file:
-            kwargs["aws_config_file"] = aws_config_file
-
-        utilities.login(**kwargs)
-        self.info("Successfully set AWS credentials")
+        backend.login(**kwargs)
+        self.info("Initiated successfully")
 
 
 class VerifyCommand(Command):
@@ -42,11 +38,19 @@ class VerifyCommand(Command):
 
     verify
         {email-address : The email address that you want to verify}
+        {--backend=aws : The email backend to use. Defaults to AWS SES }
     """
 
     def handle(self):
         email = self.argument("email-address")
-        verified = utilities.verify_address(email)
+        __backend = available_backends.get(self.option("backend"))
+        if not __backend:
+            return self.line(
+                f'No backend called {self.option("backend")} exists', "error"
+            )
+        backend = __backend()
+
+        verified = backend.verify_address(email)
 
         if verified:
             self.info("This email address has already been verified")
@@ -66,6 +70,7 @@ class SendCommand(Command):
         {sender : The source email address (you must have verified ownership)}
         {subject : The subject line of the email}
         {--c|content=? : The content of the email to send}
+        {--backend=aws : The email backend to use. Defaults to AWS SES }
         {--f|file-path=? : A path to a file containing content to send}
         {--t|theme=? : A path to a css file to be applied to the email}
         {--e|variable=* : Context variables to pass to the email, e.g. `-e name=Chris`}
@@ -73,6 +78,13 @@ class SendCommand(Command):
     """
 
     def handle(self):
+        __backend = available_backends.get(self.option("backend"))
+        if not __backend:
+            return self.line(
+                f'No backend called {self.option("backend")} exists', "error"
+            )
+        backend = __backend()
+
         sender = self.argument("sender")
         subject = self.argument("subject")
 
@@ -109,5 +121,5 @@ class SendCommand(Command):
         if theme:
             kwargs["theme"] = theme
 
-        utilities.send_message(**kwargs)
+        backend.send(**kwargs)
         self.info("Messages added to queue")
