@@ -73,6 +73,10 @@ The above arguments, in order, are:
 - A markdown file containing some content to send. Note that you can also use the `-c` flag to pass string content to be sent directly to the email, e.g. `-c "hello"`
 - A list of email addresses to send the content to
 
+## Contributing
+
+If you'd like to contribute to this codebase, the latest dev builds are on [Packagr](https://packagr.app). Get in touch to request access to these
+
 ## Styling emails
 
 By default, Maildown bakes in its own default style sheet when sending emails. This looks something like this (the below email is the content of this readme):
