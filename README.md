@@ -75,7 +75,7 @@ The above arguments, in order, are:
 
 ## Contributing
 
-If you'd like to contribute to this codebase, the latest dev builds are on [Packagr](https://packagr.app). Get in touch to request access to these
+If you'd like to contribute to this codebase, the latest dev builds are on [RepoForge.io](https://repoforge.io). Get in touch to request access to these
 
 ## Styling emails
 
